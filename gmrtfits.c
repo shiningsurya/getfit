@@ -403,7 +403,16 @@ int put_subint_header(){
         // dx = sum_subint_mid_pt / slen;
         // dx = 86400.0*fh[i]->fract/(2*dx);
         // printf("This is what ? %lf",dx);
-		dx = fh->fract/2;
+		/************************
+		 * I'm checking if I what I have coded above is actually correct or not
+		 * dx = fh->fract/2; # This is what I had above 
+		 * I am chaning that to fh->fract + slen/2 
+		 * Intuition wise, it makes sense to me.
+		 * *********************
+		 * Understanding what the formula says
+		 * fh->fract*slen/(mid*2)
+		 * *********************/
+		dx = fh->fract + (mdx/2);
         fits_write_col( fits, TDOUBLE, col, subint_cnt, 1, 1, &(dx), &sta );
         col++;
 
